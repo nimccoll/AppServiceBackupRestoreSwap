@@ -1,10 +1,12 @@
-﻿$resourceGroupName = "your primary resource group name"
-$webappname = "your primary web app name"
-$targetResourceGroupName = "your secondary resource group name"
-$targetWebappName = "your secondary web app name"
-$trafficManagerProfileName = "your Traffic Manager Profile name"
-$trafficManagerEndpoint = "your Traffic Manager secondary endpoint name"
-$slotName = "staging"
+﻿param(
+    [Parameter(Mandatory)]$resourceGroupName,
+    [Parameter(Mandatory)]$webappname,
+    [Parameter(Mandatory)]$targetResourceGroupName,
+    [Parameter(Mandatory)]$targetWebappName,
+    [Parameter(Mandatory)]$trafficManagerProfileName,
+    [Parameter(Mandatory)]$trafficManagerEndpoint,
+    [Parameter(Mandatory)]$slotName
+)
 
 # Retrieve backup configuration
 Write-Output "Retrieving backup configuration..."
