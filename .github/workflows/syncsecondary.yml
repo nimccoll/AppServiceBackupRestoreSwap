@@ -1,6 +1,30 @@
 # This workflow will sync the App Service in the secondary region with the primary site
 
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch: 
+    inputs: 
+      resourceGroupName: 
+        description: 'Primary resource group name'
+        required: true
+      webAppName: 
+        description: 'Primary web app name'
+        required: true
+      targetResourceGroupName: 
+        description: 'Secondary resource group name'
+        required: true
+      targetWebAppName: 
+        description: 'Secondary web app name'
+        required: true
+      trafficManagerProfileName: 
+        description: 'Traffic Manager profile name'
+        required: true
+      trafficManagerEndpoint: 
+        description: 'Secondary Traffic Manager endpoint'
+        required: true
+      slotName: 
+        description: 'Slot name to deploy to'
+        required: true
+        default: 'staging'
 
 name: Sync Secondary App Service
 
@@ -22,5 +46,5 @@ jobs:
     - name: Run Azure PowerShell Script File
       uses: azure/powershell@v1
       with:
-        inlineScript: ./SyncSecondary.ps1 -resourceGroupName nimccfta-ibwc-rg -webappname nimccfta-ibwc -targetResourceGroupName nimccfta-ibwc2-rg -targetWebappName nimccfta-ibwc2 -trafficManagerProfileName nimccfta-ibwc -trafficManagerEndpoint ibwc-northcentral -slotName staging
+        inlineScript: ./SyncSecondary.ps1 -resourceGroupName ${{ github.event.inputs.resourceGroupName }} -webappname ${{ github.event.inputs.webAppName }} -targetResourceGroupName ${{ github.event.inputs.targetResourceGroupName }} -targetWebappName ${{ github.event.inputs.targetWebAppName }} -trafficManagerProfileName ${{ github.event.inputs.trafficManagerProfileName }} -trafficManagerEndpoint ${{ github.event.inputs.trafficManagerEndpoint }} -slotName ${{ github.event.inputs.slotName }}
         azPSVersion: "latest"
